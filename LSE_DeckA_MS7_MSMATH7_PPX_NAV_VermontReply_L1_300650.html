@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Vermont Reply — Deck A — L1 300-650L</title>
+</head>
+<body style="background:#F0F0F0;margin:0;padding:20px;font-family:Arial,sans-serif;">
+<div style="max-width:960px;margin:0 auto;background:#FFFFFF;padding:24px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);border-radius:4px;">
+
+  <!-- HEADER BLOCK -->
+  <div style="overflow:hidden;margin-bottom:6px;">
+    <div style="float:right;background:#1565C0;color:#FFFFFF;
+                padding:8px 16px;border-radius:6px;font-size:13px;font-weight:bold;
+                text-align:center;line-height:1.3;white-space:nowrap;">
+      ELPAC Level 1 | NWEA 300-650L
+    </div>
+    <div style="font-size:14px;color:#404040;font-weight:bold;">
+      DTR&nbsp;|&nbsp;Listen to a Short Exchange
+    </div>
+    <div style="font-size:11px;color:#666666;margin-top:3px;">
+      LSE-MS7-L1-300650-MSMATH7-PPX-NAV-02 &nbsp;|&nbsp; MS Math: Grade 7 &nbsp;|&nbsp; Percent Problems &nbsp;|&nbsp; Pen-Pal Exchange &nbsp;|&nbsp; North American Voices
+    </div>
+  </div>
+
+  <!-- TITLE -->
+  <h1 style="text-align:center;font-size:28px;font-weight:bold;color:#000000;margin:12px 0 6px;">
+    The Vermont Reply
+  </h1>
+
+  <!-- CLICK TO LISTEN (decorative icon — not clickable) -->
+  <div style="text-align:center;margin:4px 0 10px;color:#666666;font-size:14px;">
+    Click&nbsp;
+    <span style="display:inline-block;background:#1565C0;color:#FFFFFF;border-radius:6px;
+                 width:26px;height:26px;text-align:center;line-height:26px;
+                 font-size:13px;vertical-align:middle;">🎧</span>
+    &nbsp;to listen.
+  </div>
+
+  <!-- RULE 1 -->
+  <hr style="border:none;border-top:1px solid #CCCCCC;margin:4px 0;">
+
+  <!-- DIRECTIONS ROW -->
+  <div style="display:flex;align-items:center;gap:12px;padding:8px 0;">
+    <button id="btnDir" type="button" aria-label="Play directions audio"
+            style="background:#1565C0;color:#FFFFFF;border:none;border-radius:8px;
+                   width:40px;height:40px;font-size:20px;cursor:pointer;flex-shrink:0;">🎧</button>
+    <span style="font-size:14px;color:#404040;line-height:1.5;">
+      Listen to a conversation between a girl and a boy. Listen carefully. You will hear the conversation only once. After listening, you will answer a question.
+    </span>
+  </div>
+
+  <!-- DIALOGUE ROW -->
+  <div style="display:flex;align-items:center;gap:12px;padding:8px 0;">
+    <button id="btnDlg" type="button" aria-label="Play dialogue audio"
+            style="background:#1565C0;color:#FFFFFF;border:none;border-radius:8px;
+                   width:40px;height:40px;font-size:20px;cursor:pointer;flex-shrink:0;">🎧</button>
+    <span style="font-size:21px;font-weight:bold;color:#2E7D32;">
+      Listen to the Conversation
+    </span>
+  </div>
+
+  <!-- QUESTION ROW -->
+  <div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;">
+    <button id="btnQ" type="button" aria-label="Play question audio"
+            style="background:#1565C0;color:#FFFFFF;border:none;border-radius:8px;
+                   width:40px;height:40px;font-size:20px;cursor:pointer;flex-shrink:0;margin-top:2px;">🎧</button>
+    <div style="flex:1;">
+      <div style="font-size:14px;font-weight:bold;color:#404040;">QUESTION:</div>
+      <div style="font-size:14px;color:#404040;margin-top:6px;line-height:1.5;">
+        What does the girl need to figure out?
+      </div>
+      <!-- ANSWER CHOICES -->
+      <div style="font-size:14px;color:#404040;line-height:1.9;margin-top:6px;margin-left:16px;">
+        <div style="padding:1px 0;">
+            <input type="radio" name="answer" id="choice_A" value="A"
+                   style="margin-right:10px;vertical-align:middle;accent-color:#1565C0;">
+            <label for="choice_A" style="cursor:pointer;">A. How much shipping costs by itself.</label>
+          </div><div style="padding:1px 0;">
+            <input type="radio" name="answer" id="choice_B" value="B"
+                   style="margin-right:10px;vertical-align:middle;accent-color:#1565C0;">
+            <label for="choice_B" style="cursor:pointer;">B. How much the syrup will cost her in total.</label>
+          </div><div style="padding:1px 0;">
+            <input type="radio" name="answer" id="choice_C" value="C"
+                   style="margin-right:10px;vertical-align:middle;accent-color:#1565C0;">
+            <label for="choice_C" style="cursor:pointer;">C. What her teacher told her to ask her pen pal about.</label>
+          </div>
+      </div>
+      <!-- INSTRUCTION LINE -->
+      <div style="font-size:13px;font-style:italic;color:#666666;margin-top:6px;">
+        Choose the best answer. You may change your answer before submitting.
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBMIT BUTTON -->
+  <div style="text-align:center;margin:18px 0 6px;">
+    <button id="btnSubmit" type="button"
+            style="background:#1565C0;color:#FFFFFF;border:none;border-radius:4px;
+                   padding:12px 48px;font-size:16px;font-weight:bold;cursor:pointer;
+                   font-family:Arial,sans-serif;">
+      Submit
+    </button>
+  </div>
+
+  <!-- FEEDBACK (hidden by default) -->
+  <div id="feedback" style="display:none;margin:10px 0;padding:10px 14px;
+                             border-radius:4px;font-size:14px;"></div>
+
+  <!-- RULE 2 (Deck A only) -->
+  <hr style="border:none;border-top:1px solid #CCCCCC;margin:8px 0;">
+
+  <!-- SMART SUPPORT ROW (Deck A only) -->
+  <div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;">
+    <button id="btnSS" type="button" aria-label="Play SMART SUPPORT audio"
+            style="background:#1565C0;color:#FFFFFF;border:none;border-radius:8px;
+                   width:40px;height:40px;font-size:20px;cursor:pointer;flex-shrink:0;">🎧</button>
+    <div style="font-size:14px;font-weight:bold;color:#404040;
+                white-space:nowrap;padding-top:6px;min-width:130px;">
+      SMART SUPPORT:
+    </div>
+    <div style="flex:1;background:#FFFF00;padding:10px 14px;border-radius:2px;
+                font-size:14px;color:#404040;line-height:1.5;">
+      Go back to the conversation. What does the girl say at the end? Find that part.
+    </div>
+  </div>
+
+  <!-- CONTENT ALIGNMENT (Deck A only) -->
+  <div style="text-align:right;font-size:10px;color:#666666;margin-top:12px;">
+    CA ELD PI.A.1, PI.B.5  &nbsp;|&nbsp;  CCSS 7.RP.A.3  &nbsp;|&nbsp;  MS Math Grade 7: Percent Problems
+  </div>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // Audio file references — replaced with base64 strings by build_html_cards.js
+  var B64 = {
+    btnDir: '[BASE64_DIRECTIONS]',
+    btnDlg: '[BASE64_DIALOGUE]',
+    btnQ:   '[BASE64_QUESTION]',
+    btnSS:  '[BASE64_SMARTSUPPORT]'
+  };
+
+  function makeURL(b64) {
+    if (!b64 || b64.indexOf('[BASE64_') === 0) return null; // not yet built
+    var bin = atob(b64);
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return URL.createObjectURL(new Blob([bytes], { type: 'audio/mp3' }));
+  }
+
+  var urls = {
+    btnDir: makeURL(B64.btnDir),
+    btnDlg: makeURL(B64.btnDlg),
+    btnQ:   makeURL(B64.btnQ),
+    btnSS:  makeURL(B64.btnSS)
+  };
+
+  var aud = {};
+  Object.keys(urls).forEach(function(k) {
+    if (urls[k]) aud[k] = new Audio(urls[k]);
+  });
+
+  var playing = null;
+
+  function bind(btnId) {
+    var btn = document.getElementById(btnId);
+    if (!btn) return;
+    var a = aud[btnId];
+
+    function toggle() {
+      if (!a) return;
+      // Stop any other audio
+      Object.keys(aud).forEach(function(k) {
+        if (k !== btnId) { try { aud[k].pause(); aud[k].currentTime = 0; } catch(e){} }
+      });
+      if (playing === btnId) {
+        try { a.pause(); } catch(e){}
+        playing = null;
+      } else {
+        try { a.currentTime = 0; a.play(); playing = btnId; } catch(e){}
+        a.onended = function() { playing = null; };
+      }
+    }
+
+    btn.addEventListener('touchend', function(e) { e.preventDefault(); toggle(); });
+    btn.addEventListener('click', function() { toggle(); });
+  }
+
+  bind('btnDir');
+  bind('btnDlg');
+  bind('btnQ');
+  bind('btnSS');
+
+  // Submit button — always blue, never disabled. Reveals feedback inline.
+  var submit = document.getElementById('btnSubmit');
+  var feedback = document.getElementById('feedback');
+  var submitted = false;
+
+  submit.addEventListener('click', function() {
+    if (submitted) return;
+    var sel = document.querySelector('input[name="answer"]:checked');
+    if (!sel) {
+      feedback.style.display = 'block';
+      feedback.style.background = '#FFEBEE';
+      feedback.style.color = '#C62828';
+      feedback.style.borderLeft = '4px solid #C62828';
+      feedback.textContent = 'Please select an answer before submitting.';
+      return;
+    }
+    submitted = true;
+    var isCorrect = (sel.value === 'B');
+    feedback.style.display = 'block';
+    if (isCorrect) {
+      feedback.style.background = '#E8F5E9';
+      feedback.style.color = '#2E7D32';
+      feedback.style.borderLeft = '4px solid #2E7D32';
+      feedback.textContent = 'Correct. You identified what the girl needs to figure out.';
+    } else {
+      feedback.style.background = '#FFEBEE';
+      feedback.style.color = '#C62828';
+      feedback.style.borderLeft = '4px solid #C62828';
+      feedback.textContent = 'Go back and listen again. Use the SMART SUPPORT to guide your next attempt.';
+    }
+
+    // Optional Apps Script submission (if URL params present)
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var sid = params.get('sid'); var tid = params.get('tid');
+      if (sid && tid) {
+        // Endpoint wired at delivery time.
+        // fetch(ENDPOINT, { method:'POST', body: JSON.stringify({sid,tid,tag:'LSE-MS7-L1-300650-MSMATH7-PPX-NAV-02',answer:sel.value,ts:Date.now()}) });
+      }
+    } catch (err) { /* noop */ }
+  });
+})();
+</script>
+</body>
+</html>
