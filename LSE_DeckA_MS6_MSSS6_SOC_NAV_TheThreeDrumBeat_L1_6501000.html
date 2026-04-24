@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Three-Drum Beat</title>
+</head>
+<body style="background:#f0f0f0;margin:0;padding:20px;font-family:Arial,sans-serif;">
+<div style="max-width:960px;margin:0 auto;background:#fff;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.1);border-radius:4px;">
+
+  <!-- HEADER -->
+  <div style="overflow:hidden;margin-bottom:6px;">
+    <div style="float:right;background:#1565C0;color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:bold;text-align:center;line-height:1.4;">
+      ELPAC Level 1<br>NWEA 650–1000L
+    </div>
+    <div style="font-size:14px;color:#404040;">DTR &nbsp;|&nbsp; Listen to a Short Exchange</div>
+    <div style="font-size:11px;color:#666666;margin-top:3px;">LSE-MS6-L1-6501000-MSSS6-SOC-NAV-02 &nbsp;|&nbsp; MS Social Studies Grade 6 &nbsp;|&nbsp; The U.S. Constitution and Federal Government</div>
+  </div>
+
+  <!-- TITLE -->
+  <h1 style="text-align:center;font-size:28px;font-weight:bold;color:#000;margin:10px 0 8px;">The Three-Drum Beat</h1>
+
+  <!-- CLICK TO LISTEN -->
+  <div style="text-align:center;margin:6px 0 10px;color:#666;font-size:14px;">
+    Click &nbsp;<span style="display:inline-block;background:#1565C0;color:#fff;border-radius:6px;width:26px;height:26px;text-align:center;line-height:26px;font-size:13px;vertical-align:middle;">&#127911;</span>&nbsp; to listen.
+  </div>
+
+  <!-- RULE 1 -->
+  <hr style="border:none;border-top:1px solid #ccc;margin:4px 0;">
+
+  <!-- DIRECTIONS ROW -->
+  <div style="display:flex;align-items:center;gap:12px;padding:8px 0;">
+    <button id="btnDir" style="background:#1565C0;color:#fff;border:none;border-radius:8px;width:40px;height:40px;font-size:20px;cursor:pointer;flex-shrink:0;">&#127911;</button>
+    <span style="font-size:14px;color:#404040;">Listen to a conversation between a girl and a boy. Listen carefully. You will hear the conversation only once. After listening, you will answer a question.</span>
+  </div>
+
+  <!-- DIALOGUE ROW -->
+  <div style="display:flex;align-items:center;gap:12px;padding:8px 0;">
+    <button id="btnDlg" style="background:#1565C0;color:#fff;border:none;border-radius:8px;width:40px;height:40px;font-size:20px;cursor:pointer;flex-shrink:0;">&#127911;</button>
+    <span style="font-size:21px;font-weight:bold;color:#2E7D32;">Listen to the Conversation</span>
+  </div>
+
+  <!-- QUESTION ROW -->
+  <div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;">
+    <button id="btnQ" style="background:#1565C0;color:#fff;border:none;border-radius:8px;width:40px;height:40px;font-size:20px;cursor:pointer;flex-shrink:0;margin-top:2px;">&#127911;</button>
+    <div>
+      <div style="font-size:14px;font-weight:bold;color:#404040;">QUESTION:</div>
+      <div style="font-size:14px;color:#404040;margin-top:4px;">What is the girl mainly explaining about the three drums?</div>
+    </div>
+  </div>
+
+  <!-- ANSWER CHOICES -->
+  <div style="margin-left:52px;padding:4px 0;font-size:14px;color:#404040;line-height:2.0;">
+    <label style="display:block;cursor:pointer;"><input type="radio" name="answer" value="A" style="margin-right:8px;vertical-align:middle;"> A.&nbsp;&nbsp;The drums all play the same beat so the song sounds strong.</label>
+    <label style="display:block;cursor:pointer;"><input type="radio" name="answer" value="B" style="margin-right:8px;vertical-align:middle;"> B.&nbsp;&nbsp;Each drum plays on its own, and the drums keep each other in balance.</label>
+    <label style="display:block;cursor:pointer;"><input type="radio" name="answer" value="C" style="margin-right:8px;vertical-align:middle;"> C.&nbsp;&nbsp;Her teacher said the Constitution is about freedom, and the drums show that.</label>
+  </div>
+
+  <!-- INSTRUCTION -->
+  <div style="margin-left:52px;padding:4px 0 6px;"><span style="font-size:13px;font-style:italic;color:#666;">Choose the best answer. You may change your answer before submitting.</span></div>
+
+  <!-- SUBMIT -->
+  <div style="text-align:center;margin:18px 0 6px;">
+    <button id="btnSubmit" type="button" style="background:#1565C0;color:#FFFFFF;border:none;border-radius:4px;padding:12px 48px;font-size:16px;font-weight:bold;cursor:pointer;font-family:Arial,sans-serif;">Submit</button>
+  </div>
+
+  <!-- FEEDBACK -->
+  <div id="feedback" style="display:none;margin:10px 0;padding:10px 14px;border-radius:4px;font-size:14px;"></div>
+
+  <hr style="border:none;border-top:1px solid #ccc;margin:6px 0;">
+  <div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;">
+    <button id="btnSS" style="background:#1565C0;color:#fff;border:none;border-radius:8px;width:40px;height:40px;font-size:20px;cursor:pointer;flex-shrink:0;margin-top:2px;">&#127911;</button>
+    <div style="font-size:14px;font-weight:bold;color:#404040;white-space:nowrap;padding-top:6px;">SMART SUPPORT:</div>
+    <div style="flex:1;background:#FFFF00;padding:8px 12px;border-radius:2px;font-size:14px;color:#404040;">Go back to the conversation. Listen for the moment when the girl says what each drum does. Locate that line.</div>
+  </div>
+  <div style="text-align:right;font-size:10px;color:#666;margin-top:10px;">CA ELD PI.B.5 &nbsp;|&nbsp; CA HSS 8.2 &nbsp;|&nbsp; MS Social Studies Grade 6: The U.S. Constitution and Federal Government</div>
+</div>
+
+<script>
+const b64_dir = "[BASE64_DIRECTIONS]";
+const b64_dlg = "[BASE64_DIALOGUE]";
+const b64_q   = "[BASE64_QUESTION]";
+const b64_ss  = "[BASE64_SMARTSUPPORT]";
+
+function makeURL(b64) {
+  const bin = atob(b64);
+  const buf = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+  return URL.createObjectURL(new Blob([buf], {type:"audio/mp3"}));
+}
+
+const aud = {
+  dir: new Audio(makeURL(b64_dir)),
+  dlg: new Audio(makeURL(b64_dlg)),
+  q:   new Audio(makeURL(b64_q)),
+  ss:  new Audio(makeURL(b64_ss))
+};
+const allAudio = Object.values(aud);
+
+function bind(btnId, audioKey) {
+  const btn = document.getElementById(btnId);
+  const a = aud[audioKey];
+  let playing = false;
+  function toggle() {
+    if (playing) { a.pause(); playing = false; }
+    else {
+      allAudio.forEach(x => { if (x !== a) { x.pause(); x.currentTime = 0; } });
+      a.play();
+      playing = true;
+      a.onended = () => { playing = false; };
+    }
+  }
+  btn.addEventListener("touchend", e => { e.preventDefault(); toggle(); });
+  btn.addEventListener("click", toggle);
+}
+
+bind('btnDir', 'dir');
+bind('btnDlg', 'dlg');
+bind('btnQ',   'q');
+bind('btnSS',  'ss');
+
+const CORRECT_ANSWER = "B";
+const IS_DECK_A = true;
+const submitBtn = document.getElementById('btnSubmit');
+const feedback = document.getElementById('feedback');
+let submitted = false;
+
+submitBtn.addEventListener('click', function() {
+  if (submitted) return;
+  const sel = document.querySelector('input[name="answer"]:checked');
+  if (!sel) {
+    feedback.style.display = 'block';
+    feedback.style.background = '#FFEBEE';
+    feedback.style.color = '#C62828';
+    feedback.style.borderLeft = '4px solid #C62828';
+    feedback.textContent = 'Please select an answer before submitting.';
+    return;
+  }
+  submitted = true;
+  const isCorrect = (sel.value === CORRECT_ANSWER);
+  feedback.style.display = 'block';
+  if (isCorrect) {
+    feedback.style.background = '#E8F5E9';
+    feedback.style.color = '#2E7D32';
+    feedback.style.borderLeft = '4px solid #2E7D32';
+    feedback.textContent = 'Correct.';
+  } else {
+    feedback.style.background = '#FFEBEE';
+    feedback.style.color = '#C62828';
+    feedback.style.borderLeft = '4px solid #C62828';
+    feedback.textContent = IS_DECK_A
+      ? 'Go back and listen again. Use the SMART SUPPORT to guide your next attempt.'
+      : 'Go back and listen again. Listen carefully to what the girl says.';
+  }
+});
+</script>
+</body>
+</html>
