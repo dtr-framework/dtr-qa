@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DTR | The Indigo Pitch | L1 | 1000–1300L | Deck A</title>
+<style>
+  :root {
+    --level-color: #1565C0;
+    --level-bg: #E3F2FD;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f0f4f8; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 16px; }
+  .card { background: #fff; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06); max-width: 680px; width: 100%; overflow: hidden; }
+  .card-header { background: var(--level-color); padding: 16px 20px; display: flex; align-items: center; gap: 14px; }
+  .level-badge {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(to bottom, color-mix(in srgb, var(--level-color) 80%, white 20%), var(--level-color));
+    border: 2px solid rgba(255,255,255,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: bold; color: #fff; flex-shrink: 0;
+  }
+  .card-title-block { flex: 1; }
+  .card-title { color: #fff; font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
+  .card-subtitle { color: rgba(255,255,255,0.85); font-size: 13px; margin-top: 2px; }
+  .deck-badge { background: rgba(255,255,255,0.2); color: #fff; font-size: 12px; padding: 3px 10px; border-radius: 20px; margin-top: 6px; display: inline-block; }
+  .click-listen { display: flex; align-items: center; gap: 8px; background: var(--level-bg); padding: 10px 16px; border-bottom: 1px solid #e0e0e0; font-size: 13px; color: #444; }
+  .click-listen svg { color: var(--level-color); flex-shrink: 0; }
+  .audio-table { width: 100%; border-collapse: collapse; }
+  .audio-table td { padding: 0; vertical-align: top; }
+  .audio-cell { width: 100px; padding: 12px 10px 12px 16px; border-bottom: 1px solid #f0f0f0; text-align: center; }
+  .audio-label { font-size: 11px; font-weight: bold; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .scaffold-cell { padding: 12px 16px 12px 10px; border-bottom: 1px solid #f0f0f0; }
+  .scaffold-text { font-size: 14px; color: #333; line-height: 1.5; }
+  .audio-btn { background: var(--level-color); color: #fff; border: none; border-radius: 50%; width: 52px; height: 52px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+  .audio-btn.playing { background: #C62828 !important; animation: audio-pulse 1.6s ease-in-out infinite; }
+  @keyframes audio-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+  .dialogue-row td { padding: 12px 16px; background: #fafafa; border-bottom: 1px solid #f0f0f0; font-size: 14px; color: #333; line-height: 1.6; }
+  .question-section { padding: 14px 16px 0; }
+  .question-block { margin-bottom: 14px; }
+  .question-label-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .question-num-badge { width: 24px; height: 24px; border-radius: 50%; background: var(--level-color); color: #fff; font-size: 13px; font-weight: bold; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .question-label { font-size: 13px; font-weight: bold; color: #444; text-transform: uppercase; letter-spacing: 0.5px; }
+  .q-audio-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .q-stem { font-size: 15px; font-weight: bold; color: #222; line-height: 1.4; margin-bottom: 8px; }
+  .answer-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .answer-row { border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden; }
+  @media (hover: hover) { .answer-row:hover { background-color: color-mix(in srgb, var(--level-color) 12%, transparent 88%); } }
+  .answer-label { display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; }
+  .answer-row.locked .answer-label { cursor: default; }
+  input[type="radio"] { display: none; }
+  .answer-letter { width: 28px; height: 28px; border-radius: 50%; background: #ccc; color: #fff; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.15s; }
+  input[type="radio"]:checked + .answer-letter { background: var(--level-color); }
+  .answer-text { font-size: 14px; color: #333; line-height: 1.4; }
+  .submit-area { padding: 14px 16px; border-top: 1px solid #f0f0f0; text-align: center; }
+  .submit-btn { background: #90A4AE; color: #fff; border: none; border-radius: 8px; padding: 12px 32px; font-size: 16px; font-weight: bold; cursor: not-allowed; transition: background 0.2s; }
+  .submit-btn:not(.disabled) { background: #1565C0; cursor: pointer; }
+  .submit-helper { font-size: 12px; color: #666; margin-top: 6px; }
+  .feedback { display: none; margin: 12px 16px 0; padding: 14px 16px; border-radius: 8px; border-left: 4px solid #2E7D32; background: #E8F5E9; }
+  .feedback .summary { font-size: 16px; font-weight: bold; margin-bottom: 8px; }
+  .feedback .q-result { font-size: 14px; margin: 3px 0; }
+  .content-align { padding: 10px 16px; background: #fafafa; border-top: 1px solid #f0f0f0; font-size: 11px; color: #888; }
+  hr.divider { border: none; border-top: 1px solid #e8e8e8; margin: 0; }
+  .tag-footer { padding: 8px 16px; background: #f7f7f7; font-size: 11px; color: #aaa; text-align: center; }
+</style>
+</head>
+<body>
+<div class="card">
+  <!-- HEADER -->
+  <div class="card-header">
+    <div class="level-badge">1</div>
+    <div class="card-title-block">
+      <div class="card-title">The Indigo Pitch</div>
+      <div class="card-subtitle">ELPAC Level 1 — Building the Foundation &nbsp;|&nbsp; 1000–1300L &nbsp;|&nbsp; Deck A</div>
+      
+    </div>
+  </div>
+
+  <!-- CLICK TO LISTEN -->
+  <div class="click-listen">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h1v-8H4v-1a8 8 0 0 1 16 0v1h-2v8h1c1.1 0 2-.9 2-2v-7a9 9 0 0 0-9-9z"/></svg>
+    Click the headphone icon to listen. You will hear the conversation only once.
+  </div>
+
+  <!-- AUDIO TABLE -->
+  <table class="audio-table">
+    <tbody>
+      <!-- DIRECTIONS -->
+      <tr>
+        <td class="audio-cell">
+          <div class="audio-label">Directions</div>
+          <button class="audio-btn" id="btnDir" aria-label="Play Directions">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          </button>
+        </td>
+        <td class="scaffold-cell">
+          <div class="scaffold-text"><strong>Listen to a conversation between a girl and a boy.</strong> After listening, you will answer some questions.</div>
+        </td>
+      </tr>
+      <!-- DIALOGUE -->
+      <tr>
+        <td class="audio-cell">
+          <div class="audio-label">Listen to Conversation</div>
+          <button class="audio-btn" id="btnDlg" aria-label="Play Conversation">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          </button>
+        </td>
+        <td class="scaffold-cell" style="font-style:italic;font-size:13px;color:#555;">Tap to listen to the conversation.</td>
+      </tr>
+      
+      <tr>
+        <td class="audio-cell">
+          <div class="audio-label">SMART SUPPORT</div>
+          <button class="audio-btn" id="btnSS" aria-label="Play SMART SUPPORT">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          </button>
+        </td>
+        <td class="scaffold-cell">
+          <div class="scaffold-text">Go back to the conversation. Identify what the girl says she wants to show the judges. Identify the reason the boy gives for leading with the cloth. Identify the conclusion they reach at the end.</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- QUESTIONS -->
+  <div class="question-section">
+
+    <!-- Q1 -->
+    <div class="question-block">
+      <div class="question-label-row">
+        <div class="question-num-badge">1</div>
+        <div class="question-label">Question 1:</div>
+        <button class="audio-btn" id="btnQ1" style="width:36px;height:36px;" aria-label="Play Question 1">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
+      </div>
+      <div class="q-stem">What is the main thing the students are trying to figure out?</div>
+      <ul class="answer-list">
+    <li class="answer-row">
+      <label class="answer-label">
+        <input type="radio" name="q1" value="A" />
+        <span class="answer-letter" style="background:#1565C0">A</span>
+        <span class="answer-text">how to get more judges to come to their presentation</span>
+      </label>
+    </li>
+    <li class="answer-row">
+      <label class="answer-label">
+        <input type="radio" name="q1" value="B" />
+        <span class="answer-letter" style="background:#1565C0">B</span>
+        <span class="answer-text">how to explain their pitch in a way the judges will understand</span>
+      </label>
+    </li>
+    <li class="answer-row">
+      <label class="answer-label">
+        <input type="radio" name="q1" value="C" />
+        <span class="answer-letter" style="background:#1565C0">C</span>
+        <span class="answer-text">how to find more information about indigo plants for their project</span>
+      </label>
+    </li></ul>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-block">
+      <div class="question-label-row">
+        <div class="question-num-badge">2</div>
+        <div class="question-label">Question 2:</div>
+        <button class="audio-btn" id="btnQ2" style="width:36px;height:36px;" aria-label="Play Question 2">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
+      </div>
+      <div class="q-stem">Why does the boy suggest starting with the batik cloth?</div>
+      <ul class="answer-list">
+    <li class="answer-row">
+      <label class="answer-label">
+        <input type="radio" name="q2" value="A" />
+        <span class="answer-letter" style="background:#1565C0">A</span>
+        <span class="answer-text">because it is something real the judges can see right away</span>
+      </label>
+    </li>
+    <li class="answer-row">
+      <label class="answer-label">
+        <input type="radio" name="q2" value="B" />
+        <span class="answer-letter" style="background:#1565C0">B</span>
+        <span class="answer-text">because the cloth will show the judges how DNA works</span>
+      </label>
+    </li>
+    <li class="answer-row">
+      <label class="answer-label">
+        <input type="radio" name="q2" value="C" />
+        <span class="answer-letter" style="background:#1565C0">C</span>
+        <span class="answer-text">because the teacher told them to bring an example to their pitch</span>
+      </label>
+    </li></ul>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-block">
+      <div class="question-label-row">
+        <div class="question-num-badge">3</div>
+        <div class="question-label">Question 3:</div>
+        <button class="audio-btn" id="btnQ3" style="width:36px;height:36px;" aria-label="Play Question 3">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
+      </div>
+      <div class="q-stem">What do the students agree their pitch should show?</div>
+      <ul class="answer-list">
+    <li class="answer-row">
+      <label class="answer-label">
+        <input type="radio" name="q3" value="A" />
+        <span class="answer-letter" style="background:#1565C0">A</span>
+        <span class="answer-text">that batik dyeing is a more effective method than using plant proteins</span>
+      </label>
+    </li>
+    <li class="answer-row">
+      <label class="answer-label">
+        <input type="radio" name="q3" value="B" />
+        <span class="answer-letter" style="background:#1565C0">B</span>
+        <span class="answer-text">that the indigo plant's DNA is more complex than other plants</span>
+      </label>
+    </li>
+    <li class="answer-row">
+      <label class="answer-label">
+        <input type="radio" name="q3" value="C" />
+        <span class="answer-letter" style="background:#1565C0">C</span>
+        <span class="answer-text">that two different traditions are following the same biological process</span>
+      </label>
+    </li></ul>
+    </div>
+
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-area">
+    <button class="submit-btn disabled" id="btnSubmit" disabled>Submit</button>
+    <div class="submit-helper" id="submitHelper">Answer all 3 questions to submit.</div>
+  </div>
+
+  <!-- FEEDBACK -->
+  <div class="feedback" id="feedback"></div>
+
+  
+  <hr class="divider"/>
+  <!-- CONTENT ALIGNMENT -->
+  <div class="content-align">
+    HS-LS1-1 &nbsp;|&nbsp; CA ELD: PI.A.1, PI.A.3, PI.B.5 &nbsp;|&nbsp; Tag: LCC-HS9-L1-10001300-HSSCILIFE-STP-CFI-01 &nbsp;|&nbsp; Deck A
+  </div>
+
+  <div class="tag-footer">DTR Framework &nbsp;|&nbsp; The Indigo Pitch &nbsp;|&nbsp; LCC-HS9-L1-10001300-HSSCILIFE-STP-CFI-01 &nbsp;|&nbsp; Deck A</div>
+</div>
+
+<script>
+  // Audio base64 blobs
+  function makeURL(b64) {
+    const bin = atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+    return URL.createObjectURL(new Blob([arr],{type:'audio/mpeg'}));
+  }
+
+  const b64_dir = "[BASE64_DIRECTIONS]";
+  const b64_dlg = "[BASE64_DIALOGUE]";
+  const b64_q1  = "[BASE64_QUESTION1]";
+  const b64_q2  = "[BASE64_QUESTION2]";
+  const b64_q3  = "[BASE64_QUESTION3]";
+      const b64_ss  = "[BASE64_SMARTSUPPORT]";
+
+  const aud = {};
+  aud.dir = new Audio(makeURL(b64_dir));
+  aud.dlg = new Audio(makeURL(b64_dlg));
+  aud.q1  = new Audio(makeURL(b64_q1));
+  aud.q2  = new Audio(makeURL(b64_q2));
+  aud.q3  = new Audio(makeURL(b64_q3));
+  aud.ss  = new Audio(makeURL(b64_ss));
+
+  let current = null;
+
+  function bind(btnId, key) {
+    const btn = document.getElementById(btnId);
+    function toggle() {
+      if (current && current !== aud[key]) {
+        current.pause(); current.currentTime = 0;
+        document.querySelectorAll('.audio-btn').forEach(b => b.classList.remove('playing'));
+        current = null;
+      }
+      if (!aud[key].paused) {
+        aud[key].pause(); aud[key].currentTime = 0;
+        btn.classList.remove('playing'); current = null;
+      } else {
+        aud[key].play();
+        btn.classList.add('playing'); current = aud[key];
+        aud[key].onended = () => { btn.classList.remove('playing'); current = null; };
+      }
+    }
+    btn.addEventListener('touchend', e => { e.preventDefault(); toggle(); });
+    btn.addEventListener('click', toggle);
+  }
+
+  bind('btnDir','dir');
+  bind('btnDlg','dlg');
+  bind('btnQ1','q1');
+  bind('btnQ2','q2');
+  bind('btnQ3','q3');
+  bind('btnSS', 'ss');
+
+  // SUBMIT GATE — Rule 29
+  const CORRECT_ANSWERS = { q1:"B", q2:"A", q3:"C" };
+  const ANSWER_COUNT_REQUIRED = 3;
+  const submitBtn = document.getElementById('btnSubmit');
+  const submitHelper = document.getElementById('submitHelper');
+  const feedbackDiv = document.getElementById('feedback');
+  let submitted = false;
+
+  function answeredCount() {
+    let n = 0;
+    for (const q of ['q1','q2','q3']) {
+      if (document.querySelector('input[name="'+q+'"]:checked')) n++;
+    }
+    return n;
+  }
+
+  function updateSubmitState() {
+    if (submitted) return;
+    if (answeredCount() === ANSWER_COUNT_REQUIRED) {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('disabled');
+      submitHelper.textContent = 'Click Submit to lock your answers.';
+    } else {
+      submitBtn.disabled = true;
+      submitBtn.classList.add('disabled');
+      submitHelper.textContent = 'Answer all 3 questions to submit.';
+    }
+  }
+
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', updateSubmitState));
+
+  submitBtn.addEventListener('click', function() {
+    if (submitted) return;
+    if (answeredCount() < ANSWER_COUNT_REQUIRED) return;
+    submitted = true;
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+    document.querySelectorAll('.answer-row').forEach(li => li.classList.add('locked'));
+    submitBtn.disabled = true;
+    submitBtn.classList.add('disabled');
+    submitHelper.style.display = 'none';
+
+    let correctCount = 0;
+    const results = {};
+    for (const q of ['q1','q2','q3']) {
+      const sel = document.querySelector('input[name="'+q+'"]:checked');
+      const got = sel ? sel.value : null;
+      const ok = (got === CORRECT_ANSWERS[q]);
+      results[q] = { got, ok };
+      if (ok) correctCount++;
+    }
+
+    feedbackDiv.style.display = 'block';
+    if (correctCount === 3) {
+      feedbackDiv.style.background = '#E8F5E9';
+      feedbackDiv.style.color = '#2E7D32';
+      feedbackDiv.style.borderLeft = '4px solid #2E7D32';
+    } else {
+      feedbackDiv.style.background = '#FFEBEE';
+      feedbackDiv.style.color = '#C62828';
+      feedbackDiv.style.borderLeft = '4px solid #C62828';
+    }
+    let html = '<div class="summary">'+correctCount+' of 3 correct.</div>';
+    for (const q of ['q1','q2','q3']) {
+      const num = q.slice(1);
+      const r = results[q];
+      const mark = r.ok ? '✓' : '✗';
+      html += '<div class="q-result">Question '+num+': '+mark+' You chose '+r.got+'. '+(r.ok?'Correct!':'Incorrect.')+'</div>';
+    }
+    feedbackDiv.innerHTML = html;
+  });
+</script>
+</body>
+</html>
