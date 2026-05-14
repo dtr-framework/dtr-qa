@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pitch on Roberto Clemente Way | DTR</title>
+<style>
+  :root {
+    --level-color: #1565C0;
+  }
+  body {
+    background: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  .card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 24px;
+    border-radius: 4px;
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.08),
+      0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  .badge {
+    float: right;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.4;
+    background: linear-gradient(180deg,
+      color-mix(in srgb, var(--level-color) 80%, white 20%),
+      var(--level-color));
+  }
+  .dtr-label {
+    font-size: 14px;
+    color: #404040;
+  }
+  .tag-line {
+    font-size: 11px;
+    color: #666666;
+    margin-top: 3px;
+  }
+  .title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+    margin: 10px 0 8px;
+    letter-spacing: 0.5px;
+  }
+  .click-hint {
+    text-align: center;
+    margin: 6px 0 10px;
+    color: #666;
+    font-size: 14px;
+  }
+  .click-hint .deco-icon {
+    display: inline-block;
+    background: #1565C0;
+    color: #fff;
+    border-radius: 6px;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+  hr.rule {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 4px 0;
+  }
+  .audio-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+  }
+  .audio-btn {
+    background: #1565C0;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.15s ease;
+  }
+  @keyframes audio-pulse {
+    0%   { transform: scale(1.0); }
+    50%  { transform: scale(1.04); }
+    100% { transform: scale(1.0); }
+  }
+  .audio-btn.playing {
+    animation: audio-pulse 1.6s ease-in-out infinite;
+    background-color: #C62828;
+  }
+  .row-text {
+    font-size: 14px;
+    color: #404040;
+  }
+  .conv-label {
+    font-size: 21px;
+    font-weight: bold;
+    color: #2E7D32;
+  }
+  .question-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--level-color);
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 13px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .question-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #404040;
+    display: flex;
+    align-items: center;
+  }
+  .question-text {
+    font-size: 14px;
+    color: #404040;
+    margin-left: 4px;
+  }
+  .answer-list {
+    margin: 6px 0 16px 64px;
+    padding: 0;
+  }
+  .answer-row {
+    list-style: none;
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: background-color 0.15s ease;
+    cursor: pointer;
+  }
+  @media (hover: hover) {
+    .answer-row:hover {
+      background-color: color-mix(in srgb, var(--level-color) 12%, transparent 88%);
+    }
+  }
+  .answer-row label {
+    font-size: 14px;
+    color: #404040;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .answer-row input[type="radio"] {
+    margin-top: 3px;
+    cursor: pointer;
+    accent-color: var(--level-color);
+  }
+  .answer-row.locked label,
+  .answer-row.locked input {
+    cursor: default;
+  }
+  .submit-wrap {
+    text-align: center;
+    margin: 18px 0 4px;
+  }
+  .submit-btn {
+    background: #1565C0;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 48px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.15s ease;
+  }
+  .submit-btn:disabled,
+  .submit-btn.disabled {
+    background: #90A4AE;
+    cursor: not-allowed;
+  }
+  .submit-helper {
+    text-align: center;
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: #666666;
+    font-style: italic;
+  }
+  .instruction {
+    margin: 14px 0 4px 24px;
+    font-size: 12px;
+    color: #666666;
+    font-style: italic;
+  }
+  .feedback {
+    display: none;
+    margin: 10px 0;
+    padding: 12px 14px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .feedback .summary {
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  .feedback .per-q {
+    font-size: 13px;
+    margin: 2px 0;
+  }
+  .ss-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 0;
+  }
+  .ss-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #404040;
+    white-space: nowrap;
+    padding-top: 6px;
+  }
+  .ss-box {
+    flex: 1;
+    background: #FFFF00;
+    padding: 8px 12px;
+    border-radius: 2px;
+    font-size: 14px;
+    color: #404040;
+  }
+  .ss-btn {
+    margin-top: 2px;
+  }
+  .alignment {
+    text-align: right;
+    font-size: 10px;
+    color: #666;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div style="overflow:hidden;margin-bottom:6px;">
+    <div class="badge">
+      ELPAC Level 1<br>NWEA 1300–1400L
+    </div>
+    <div class="dtr-label">DTR &nbsp;|&nbsp; Listen to a Classroom Conversation</div>
+    <div class="tag-line">LCC-HS12-L1-13001400-HSELA1112-STP-LAT-02 • HS English 11-12: Rhetorical Devices</div>
+  </div>
+
+  <!-- TITLE -->
+  <h1 class="title">The Pitch on Roberto Clemente Way</h1>
+
+  <!-- CLICK TO LISTEN -->
+  <div class="click-hint">
+    Click &nbsp;<span class="deco-icon">&#127911;</span>&nbsp; to listen.
+  </div>
+
+  <hr class="rule">
+
+  <!-- DIRECTIONS ROW -->
+  <div class="audio-row">
+    <button id="btnDir" class="audio-btn" type="button" aria-label="Play directions">&#127911;</button>
+    <span class="row-text">Listen to a conversation between a teacher and a student. Listen carefully. You will hear the conversation only once. After listening, you will answer some questions.</span>
+  </div>
+
+  <!-- LISTEN TO THE CONVERSATION ROW -->
+  <div class="audio-row">
+    <button id="btnDlg" class="audio-btn" type="button" aria-label="Play conversation">&#127911;</button>
+    <span class="conv-label">Listen to the Conversation</span>
+  </div>
+
+  <!-- QUESTION 1 ROW -->
+  <div class="audio-row">
+    <button id="btnQ1" class="audio-btn" type="button" aria-label="Play question 1">&#127911;</button>
+    <span class="question-label"><span class="question-badge">1</span>QUESTION 1:</span>
+    <span class="question-text">What is the topic of this conversation?</span>
+  </div>
+  <ul class="answer-list" id="q1-list">
+    <li class="answer-row" data-q="1" data-val="A"><label><input type="radio" name="q1" value="A">A. how to use rhetorical devices effectively in a pitch</label></li>
+    <li class="answer-row" data-q="1" data-val="B"><label><input type="radio" name="q1" value="B">B. how to record interviews with local business owners</label></li>
+    <li class="answer-row" data-q="1" data-val="C"><label><input type="radio" name="q1" value="C">C. how gentrification is changing Latino neighborhoods</label></li>
+  </ul>
+
+  <!-- QUESTION 2 ROW -->
+  <div class="audio-row">
+    <button id="btnQ2" class="audio-btn" type="button" aria-label="Play question 2">&#127911;</button>
+    <span class="question-label"><span class="question-badge">2</span>QUESTION 2:</span>
+    <span class="question-text">According to the student, why should the judges trust their team to tell these stories?</span>
+  </div>
+  <ul class="answer-list" id="q2-list">
+    <li class="answer-row" data-q="2" data-val="A"><label><input type="radio" name="q2" value="A">A. because they have professional recording equipment</label></li>
+    <li class="answer-row" data-q="2" data-val="B"><label><input type="radio" name="q2" value="B">B. because they have personal relationships in the neighborhood</label></li>
+    <li class="answer-row" data-q="2" data-val="C"><label><input type="radio" name="q2" value="C">C. because they have already interviewed many business owners</label></li>
+  </ul>
+
+  <!-- QUESTION 3 ROW -->
+  <div class="audio-row">
+    <button id="btnQ3" class="audio-btn" type="button" aria-label="Play question 3">&#127911;</button>
+    <span class="question-label"><span class="question-badge">3</span>QUESTION 3:</span>
+    <span class="question-text">What does the student's final analogy suggest about the podcast?</span>
+  </div>
+  <ul class="answer-list" id="q3-list">
+    <li class="answer-row" data-q="3" data-val="A"><label><input type="radio" name="q3" value="A">A. The podcast will be more popular than other entertainment shows.</label></li>
+    <li class="answer-row" data-q="3" data-val="B"><label><input type="radio" name="q3" value="B">B. The podcast will preserve recordings of past traditions and customs.</label></li>
+    <li class="answer-row" data-q="3" data-val="C"><label><input type="radio" name="q3" value="C">C. The podcast will keep voices alive in a way that stays useful to future generations.</label></li>
+  </ul>
+
+  <!-- INSTRUCTION -->
+  <div class="instruction">Choose the best answer for each question. You may change your answers before submitting.</div>
+
+  <!-- SUBMIT BUTTON -->
+  <div class="submit-wrap">
+    <button id="btnSubmit" class="submit-btn disabled" type="button" disabled>Submit</button>
+  </div>
+  <div id="submitHelper" class="submit-helper">Answer all 3 questions to submit.</div>
+
+  <!-- FEEDBACK -->
+  <div id="feedback" class="feedback"></div>
+
+  <!-- RULE 2 (Deck A only) -->
+  <hr class="rule">
+
+  <!-- SMART SUPPORT ROW (Deck A only) -->
+  <div class="ss-row">
+    <button id="btnSS" class="audio-btn ss-btn" type="button" aria-label="Play smart support">&#127911;</button>
+    <div class="ss-label">SMART SUPPORT:</div>
+    <div class="ss-box">Go back to the conversation. Locate the line where the teacher names the opening rhetorical move. Locate the line where the student explains why his team can tell the stories. Locate the line where the student offers his closing comparison.</div>
+  </div>
+
+  <!-- CONTENT ALIGNMENT (Deck A only) -->
+  <div class="alignment">
+    CA ELD PI.A.1, PI.A.3, PI.B.5, PI.B.6 &nbsp;|&nbsp; CCSS.ELA-LITERACY.RI.11-12.6 &nbsp;|&nbsp; HS English 11-12: Rhetorical Devices
+  </div>
+
+</div>
+
+<script>
+// Base64 audio strings — filled in by build_html_cards.js (LCC 6-token contract per BR-6)
+const b64_dir = "[BASE64_DIRECTIONS]";
+const b64_dlg = "[BASE64_DIALOGUE]";
+const b64_q1  = "[BASE64_QUESTION1]";
+const b64_q2  = "[BASE64_QUESTION2]";
+const b64_q3  = "[BASE64_QUESTION3]";
+const b64_ss  = "[BASE64_SMARTSUPPORT]";
+
+function makeURL(b64) {
+  const bin = atob(b64);
+  const buf = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+  return URL.createObjectURL(new Blob([buf], {type:'audio/mp3'}));
+}
+
+const aud = {
+  dir: new Audio(makeURL(b64_dir)),
+  dlg: new Audio(makeURL(b64_dlg)),
+  q1:  new Audio(makeURL(b64_q1)),
+  q2:  new Audio(makeURL(b64_q2)),
+  q3:  new Audio(makeURL(b64_q3)),
+  ss:  new Audio(makeURL(b64_ss))
+};
+
+const allAudio = Object.values(aud);
+const allBtns = {};
+
+function bind(btnId, audioKey) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  allBtns[audioKey] = btn;
+  const a = aud[audioKey];
+  let playing = false;
+
+  function clearAll() {
+    allAudio.forEach(x => {
+      if (x !== a) { x.pause(); x.currentTime = 0; }
+    });
+    Object.entries(allBtns).forEach(([k, b]) => {
+      if (k !== audioKey) b.classList.remove('playing');
+    });
+  }
+
+  function toggle() {
+    if (playing) {
+      a.pause();
+      a.currentTime = 0;
+      playing = false;
+      btn.classList.remove('playing');
+    } else {
+      clearAll();
+      a.play();
+      playing = true;
+      btn.classList.add('playing');
+      a.onended = () => {
+        playing = false;
+        btn.classList.remove('playing');
+      };
+    }
+  }
+
+  btn.addEventListener('touchend', e => { e.preventDefault(); toggle(); });
+  btn.addEventListener('click', toggle);
+}
+
+bind('btnDir', 'dir');
+bind('btnDlg', 'dlg');
+bind('btnQ1',  'q1');
+bind('btnQ2',  'q2');
+bind('btnQ3',  'q3');
+bind('btnSS',  'ss');
+
+// SUBMIT GATE — Rule 29 (LCC Multi-Question Submit)
+const CORRECT_ANSWERS = { q1: "A", q2: "B", q3: "C" };
+const IS_DECK_A = true;
+const ANSWER_COUNT_REQUIRED = 3;
+const submitBtn = document.getElementById('btnSubmit');
+const submitHelper = document.getElementById('submitHelper');
+const feedback = document.getElementById('feedback');
+let submitted = false;
+
+function answeredCount() {
+  let count = 0;
+  for (const q of ['q1','q2','q3']) {
+    if (document.querySelector('input[name="' + q + '"]:checked')) count++;
+  }
+  return count;
+}
+
+function updateSubmitState() {
+  if (submitted) return;
+  const count = answeredCount();
+  if (count === ANSWER_COUNT_REQUIRED) {
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('disabled');
+    submitHelper.textContent = 'Click Submit to lock your answers.';
+  } else {
+    submitBtn.disabled = true;
+    submitBtn.classList.add('disabled');
+    submitHelper.textContent = 'Answer all 3 questions to submit.';
+  }
+}
+
+document.querySelectorAll('input[type="radio"]').forEach(r => {
+  r.addEventListener('change', updateSubmitState);
+});
+
+submitBtn.addEventListener('click', function() {
+  if (submitted) return;
+  if (answeredCount() < ANSWER_COUNT_REQUIRED) return;
+  submitted = true;
+
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+  document.querySelectorAll('.answer-row').forEach(li => li.classList.add('locked'));
+  submitBtn.disabled = true;
+  submitBtn.classList.add('disabled');
+  submitHelper.style.display = 'none';
+
+  const results = {};
+  let correctCount = 0;
+  for (const q of ['q1','q2','q3']) {
+    const sel = document.querySelector('input[name="' + q + '"]:checked');
+    const got = sel ? sel.value : null;
+    const ok = (got === CORRECT_ANSWERS[q]);
+    results[q] = { got, ok };
+    if (ok) correctCount++;
+  }
+
+  feedback.style.display = 'block';
+  if (correctCount === 3) {
+    feedback.style.background = '#E8F5E9';
+    feedback.style.color = '#2E7D32';
+    feedback.style.borderLeft = '4px solid #2E7D32';
+  } else {
+    feedback.style.background = '#FFEBEE';
+    feedback.style.color = '#C62828';
+    feedback.style.borderLeft = '4px solid #C62828';
+  }
+  let html = '<div class="summary">' + correctCount + ' of 3 correct.</div>';
+  for (const q of ['q1','q2','q3']) {
+    const num = q.slice(1);
+    const r = results[q];
+    const mark = r.ok ? '\u2713' : '\u2717';
+    html += '<div class="per-q">' + mark + ' Question ' + num + ': you chose ' + (r.got || '\u2014') + '</div>';
+  }
+  if (correctCount < 3) {
+    html += '<div class="per-q" style="margin-top:8px;">' +
+      (IS_DECK_A
+        ? 'Go back and listen again. Use the SMART SUPPORT to guide your next attempt.'
+        : 'Go back and listen again. Listen carefully across the whole conversation.') +
+      '</div>';
+  }
+  feedback.innerHTML = html;
+});
+
+updateSubmitState();
+</script>
+</body>
+</html>
